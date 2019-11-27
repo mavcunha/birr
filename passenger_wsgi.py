@@ -1,12 +1,12 @@
 from parse_config import parse
 
 
-def valid_key(path: str):
+def valid_key(path):
     # will consider a valid path if has no slashes and is not None
     return path is not None and not path.count('/') and path.isalnum()
 
 
-def clean_path(path: str):
+def clean_path(path):
     return path.strip('/') if path else None
 
 

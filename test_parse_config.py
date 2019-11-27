@@ -1,5 +1,5 @@
-from unittest import TestCase
-from unittest.mock import patch, mock_open
+import unittest
+from mock import patch, mock_open
 
 import parse_config
 
@@ -12,13 +12,14 @@ DEFAULT_CFG = '''
 # quid and pro should map to quo
 quid pro quo
 this for that
+simple result
 '''
 
 
-class TestParseConfig(TestCase):
+class TestParseConfig(unittest.TestCase):
 
-    def setUp(self) -> None:
-        patcher = patch("builtins.open", mock_open(read_data=DEFAULT_CFG))
+    def setUp(self):
+        patcher = patch("__builtin__.open", mock_open(read_data=DEFAULT_CFG))
         self.addCleanup(patcher.stop)
         self.mock_open = patcher.start()
         self.urls = parse_config.parse()
@@ -68,3 +69,8 @@ class TestParseConfig(TestCase):
     def test_parse_config(self):
         self.assertEqual('quo', self.urls['pro'])
         self.assertEqual('that', self.urls['this'])
+        self.assertEqual('result', self.urls['simple'])
+
+
+if __name__ == '__main__':
+    unittest.main()

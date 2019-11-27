@@ -1,19 +1,19 @@
 
 def lines(file_name):
     try:
-        with open(file_name) as file:
-            for line in file:
+        with open(file_name) as config:
+            for line in config:
                 if not ignore(line):
                     yield line.strip()
     except OSError:
         raise ValueError('File {file} not found'.format(file=file_name))
 
 
-def ignore(line: str):
+def ignore(line):
     ls = line.strip()
     return (not ls
             or ls.startswith('#')
-            or len(ls.split()) <= 2)
+            or len(ls.split()) < 2)
 
 
 def break_line(line):
@@ -21,7 +21,7 @@ def break_line(line):
     return tokens[-1], tokens[:-1]
 
 
-def list_to_keys(value, keys: list):
+def list_to_keys(value, keys):
     return {key: value for key in keys}
 
 
