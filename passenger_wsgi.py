@@ -17,6 +17,6 @@ def application(environ, start_response):
     if valid_key(path) and path in shorts:
         start_response('303 See Other', [('Location', shorts[path])])
     else:
-        start_response('200 OK', [('Content-type', 'text/plain')])
+        start_response('404 Not Found', [('Content-type', 'text/plain')])
 
     return []

@@ -12,7 +12,7 @@ class PassengerWsgiTestCase(unittest.TestCase):
 
     def test_empty_path_info_does_not_redirect(self, parse):
         passenger_wsgi.application({'PATH_INFO': ''}, self.response)
-        self.response.assert_called_with('200 OK', [('Content-type', 'text/plain')])
+        self.response.assert_called_with('404 Not Found', [('Content-type', 'text/plain')])
 
     def test_valid_path_returns_false_for_invalid(self, parse):
         paths = ['/some/path', '/ ', '/  ', '/$#@', '/?this=that', '   ']
@@ -29,11 +29,11 @@ class PassengerWsgiTestCase(unittest.TestCase):
 
     def test_not_redirect_if_not_found(self, parse):
         passenger_wsgi.application({'PATH_INFO': '/non-existent'}, self.response)
-        self.response.assert_called_with('200 OK', [('Content-type', 'text/plain')])
+        self.response.assert_called_with('404 Not Found', [('Content-type', 'text/plain')])
 
     def test_not_redirect_if_path_info_missing(self, parse):
         passenger_wsgi.application({}, self.response)
-        self.response.assert_called_with('200 OK', [('Content-type', 'text/plain')])
+        self.response.assert_called_with('404 Not Found', [('Content-type', 'text/plain')])
 
     def test_redirects_if_key_found(self, parse):
         passenger_wsgi.application({'PATH_INFO': '/key'}, self.response)
