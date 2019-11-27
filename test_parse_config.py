@@ -15,7 +15,7 @@ this for that
 '''
 
 
-class TestBirr(TestCase):
+class TestParseConfig(TestCase):
 
     def setUp(self) -> None:
         patcher = patch("builtins.open", mock_open(read_data=DEFAULT_CFG))
